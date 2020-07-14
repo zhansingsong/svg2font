@@ -1,0 +1,11 @@
+{
+    "startCodePoint": "f103",
+    "codePoints": {
+        "arrow": "f101",
+        "search": "f102"
+    },
+    "unicodeMapSvg": {
+        "/Users/apple/sogou/sogou-yue-h5/svg2font/svgs/arrow.svg": "&#xf101;",
+        "/Users/apple/sogou/sogou-yue-h5/svg2font/svgs/search.svg": "&#xf102;"
+    }
+}

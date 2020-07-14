@@ -8,7 +8,7 @@
 - 安装
 
 ```bash
-npm install @zhansingsong/svg-to-font
+npm install @zhansingsong/svg2font
 ```
 
 - 引用

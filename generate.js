@@ -10,7 +10,7 @@ const TEMPLATE_STR = fs.readFileSync(path.join(__dirname, 'css.template'));
 const fontMeta = JSON.parse(fs.readFileSync(path.join(__dirname, 'fontMeta.json'), {encoding: 'utf-8'}));
 const codePoints = fontMeta.codePoints || {};
 const unicodeMapSvg = fontMeta.unicodeMapSvg || {};
-let startCodePoint = parseInt(fontMeta.startCodePoint, 16);
+let startCodePoint = parseInt(fontMeta.startCodePoint || 0xF101, 16);
 
 const updateFontMeta = (fontMeta) => fs.writeFileSync(path.join(__dirname, 'fontMeta.json'), JSON.stringify(fontMeta, null, 4));
 // 0xF101
@@ -45,7 +45,6 @@ const generateFont = (options) => {
   startCodePoint = startCodePoint.toString(16);
   updateFontMeta({startCodePoint, codePoints, unicodeMapSvg});
   options = _.extend(options, {startCodePoint, codePoints, unicodeMapSvg});
-  console.log(options, '--------')
   // 输出字体文件
   const pathDir = path.join(process.cwd(), options.outputPath);
   fs.ensureDirSync(pathDir);

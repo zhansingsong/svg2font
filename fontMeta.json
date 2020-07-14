@@ -1,11 +1,3 @@
 {
-    "startCodePoint": "f105",
-    "codePoints": {
-        "arrow": "f103",
-        "search": "f104"
-    },
-    "unicodeMapSvg": {
-        "/Users/apple/github/svg2font/example/svgs/arrow.svg": "&#xf103;",
-        "/Users/apple/github/svg2font/example/svgs/search.svg": "&#xf104;"
-    }
+    "startCodePoint": "f103"
 }

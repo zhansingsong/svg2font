@@ -1,11 +1,16 @@
-const { generateFont, generateCSS} = require('./generate');
-const _ = require('lodash');
+# svg2font
 
-const init = (options) => {
-  // 默认配置
-  const defaults = {
-    // svgs 路径
-    svgsPath: null,
+一个将 SVG icon 转换为 font icons 实用小工具！
+
+> beta 版本，没有放置 NPM
+
+## 快速入门
+
+```js
+const svg2font = require('../index');
+svg2font({
+    // svgs 路径，参考 https://github.com/isaacs/node-glob
+    svgsPath: 'svgs/*',
     // 输出 css 文件名
     cssFileName: 'iconfont',
     // 字体名
@@ -18,10 +23,6 @@ const init = (options) => {
     outputPath: 'output',
     // css 中自己的引用路径
     cssPath: '.',
-  };
-  options = _.extend(defaults, options);
-  generateFont(options);
-  generateCSS(options);
-};
+});
+```
 
-module.exports = init;

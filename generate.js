@@ -4,17 +4,15 @@ const path = require('path');
 const fontCarrier = require('font-carrier');
 const _ = require('lodash');
 
-const CWD = process.cwd();
-const svgs = glob.sync(path.join(CWD, 'svgs', '*.svg'));
 // 读取渲染模板
-const TEMPLATE_STR = fs.readFileSync(path.join(CWD, 'css.template'));
+const TEMPLATE_STR = fs.readFileSync(path.join(__dirname, 'css.template'));
 // 获取
-const fontMeta = JSON.parse(fs.readFileSync(path.join(CWD, 'fontMeta.json'), {encoding: 'utf-8'}));
+const fontMeta = JSON.parse(fs.readFileSync(path.join(__dirname, 'fontMeta.json'), {encoding: 'utf-8'}));
 const codePoints = fontMeta.codePoints || {};
 const unicodeMapSvg = fontMeta.unicodeMapSvg || {};
 let startCodePoint = parseInt(fontMeta.startCodePoint, 16);
 
-const updateFontMeta = (fontMeta) => fs.writeFileSync(path.join(CWD, 'fontMeta.json'), JSON.stringify(fontMeta, null, 4));
+const updateFontMeta = (fontMeta) => fs.writeFileSync(path.join(__dirname, 'fontMeta.json'), JSON.stringify(fontMeta, null, 4));
 // 0xF101
 const getUnicodeMapSvg = (filePath) => {
   if(unicodeMapSvg[filePath]){
@@ -29,6 +27,11 @@ const getUnicodeMapSvg = (filePath) => {
 };
 
 const generateFont = (options) => {
+  if(!options.svgsPath) {
+    const throwError = `"svgsPath" required is ${options.svgsPath}`;
+    throw throwError;
+  }
+  const svgs = glob.sync(path.join(process.cwd(), options.svgsPath));
   // 创建一个空字体文件
   const font = fontCarrier.create();
   // 获取 svg icon
@@ -43,7 +46,7 @@ const generateFont = (options) => {
   updateFontMeta({startCodePoint, codePoints, unicodeMapSvg});
   options = _.extend(options, {startCodePoint, codePoints, unicodeMapSvg});
   // 输出字体文件
-  const pathDir = path.join(CWD, options.outputPath);
+  const pathDir = path.join(process.cwd(), options.outputPath);
   fs.ensureDirSync(pathDir);
   font.output({
     path: path.join(pathDir, options.fontName)
@@ -52,7 +55,7 @@ const generateFont = (options) => {
 
 const generateCSS = (options) => {
   const timeStamp = (new Date()).getTime();
-  const outputFontFiles = glob.sync(path.join(CWD, options.outputPath, '*'));
+  const outputFontFiles = glob.sync(path.join(process.cwd(), options.outputPath, '*'));
   outputFontFiles.forEach(fontFile => {
     const metas = path.parse(fontFile);
     const ext = metas.ext.slice(1);
@@ -62,7 +65,7 @@ const generateCSS = (options) => {
       options[ext] = `${/\/$/.test(options.cssPath) ? options.cssPath : `${options.cssPath}/`}${metas.base}?t=${timeStamp}`;
     }
   });
-  fs.writeFileSync(path.join(CWD, options.outputPath, /\.\w*$/.test(options.cssFileName) ? options.cssFileName : `${options.cssFileName}.css`), _.template(TEMPLATE_STR)(options));
+  fs.writeFileSync(path.join(process.cwd(), options.outputPath, /\.\w*$/.test(options.cssFileName) ? options.cssFileName : `${options.cssFileName}.css`), _.template(TEMPLATE_STR)(options));
 };
 
 module.exports = {

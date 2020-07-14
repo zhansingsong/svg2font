@@ -1,5 +1,5 @@
 {
-  "name": "svg2font",
+  "name": "@zhansingsong/svg2font",
   "version": "1.0.0",
   "description": "convertor svg to icon font",
   "main": "index.js",

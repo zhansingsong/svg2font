@@ -16,20 +16,46 @@ npm install @zhansingsong/svg-to-font
 ```js
 const svg2font = require('@zhansingsong/svg-to-font');
 svg2font({
-    // svgs 路径，参考 https://github.com/isaacs/node-glob
-    svgsPath: 'svgs/*',
+    // svgs 路径，https://github.com/isaacs/node-glob
+    svgPath: null,
     // 输出 css 文件名
     cssFileName: 'iconfont',
     // 字体名
     fontName: 'iconfont',
-    // 引用 icon 的前缀
-    iconPrefix: 'icon',
+    // 引用 icon 类名的前缀
+    iconClassPrefix: 'icon',
     // 基类名
-    baseSelector: 'iconfont',
+    baseClass: 'iconfont',
     // 字体和 css 文件输出目录
     outputPath: 'output',
-    // css 中自己的引用路径
-    cssPath: '.',
+    // css 中字体的引用路径
+    stylePath: '.',
+    // 设置伪类
+    pseudo: 'before'
 });
+```
+
+## 命令行
+
+```bash
+Usage: svg2font <svgPath> [options]
+
+<svgPath>: path to svg icons
+
+Options:
+  -v, --version                              output the version number
+  -c, --css-file-name [cssFileName]          set css file name. https://github.com/isaacs/node-glob
+  -f, --font-name [fontName]                 set font name
+  -i, --icon-class-prefix [iconClassPrefix]  set class prefix
+  -b, --base-class [baseClass]               set base class
+  -o, --output-path [outputPath]             set output path to fonts
+  -s, --style-path [stylePath]               set output path to fonts
+  -p, --pseudo [pseudo]                      set pseudo
+  -h, --help                                 display help for command
+
+Examples:
+
+  $ svg2font /path/to/svg/*.svg
+  $ svg2font /path/to/svg/*.svg -c iconfont -f customFont
 ```
 

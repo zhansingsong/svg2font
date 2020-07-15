@@ -28,6 +28,10 @@ svg2font({
     baseClass: 'iconfont',
     // 字体和 css 文件输出目录
     outputPath: 'output',
+    outputPath: {
+      font: 'font/path/to/dir',
+      css: 'css/path/to/dir'
+    }
     // css 中字体的引用路径
     stylePath: '.',
     // 设置伪类

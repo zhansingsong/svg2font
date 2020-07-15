@@ -1,6 +1,8 @@
 const { generateFont, generateCSS} = require('./generate');
 const _ = require('lodash');
+const path = require('path');
 
+const getAbsolutePath = (p) => path.isAbsolute(p) ? p : path.join(process.cwd(), p);
 const init = (options) => {
   // 默认配置
   const defaults = {
@@ -22,7 +24,6 @@ const init = (options) => {
     pseudo: 'before'
   };
   options = _.assignInWith(defaults, options, (objValue, srcValue) => !srcValue ? objValue : srcValue);
-  console.log(options.outputPath)
   if(_.isObject(options.outputPath)){
     options.fontOutputPath = options.outputPath.font || 'output';
     options.cssOutputPath = options.outputPath.css || 'output';
@@ -30,6 +31,9 @@ const init = (options) => {
     options.fontOutputPath = options.outputPath;
     options.cssOutputPath = options.outputPath;
   }
+  options.svgPath = getAbsolutePath(options.svgPath);
+  options.fontOutputPath = getAbsolutePath(options.fontOutputPath);
+  options.cssOutputPath = getAbsolutePath(options.cssOutputPath);
   generateFont(options);
   generateCSS(options);
 };

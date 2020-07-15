@@ -31,7 +31,7 @@ const generateFont = (options) => {
     const throwError = `"svgPath" required is ${options.svgPath}`;
     throw throwError;
   }
-  const svgs = glob.sync(path.join(process.cwd(), options.svgPath));
+  const svgs = glob.sync(options.svgPath);
   // 创建一个空字体文件
   const font = fontCarrier.create();
   // 获取 svg icon
@@ -44,7 +44,7 @@ const generateFont = (options) => {
   updateFontMeta({startCodePoint, codePoints, unicodeMapSvg});
   options = _.extend(options, {startCodePoint, codePoints, unicodeMapSvg});
   // 输出字体文件
-  const fontPathDir = path.join(process.cwd(), options.fontOutputPath);
+  const fontPathDir = options.fontOutputPath;
   fs.ensureDirSync(fontPathDir);
   font.output({
     path: path.join(fontPathDir, options.fontName)
@@ -53,7 +53,7 @@ const generateFont = (options) => {
 
 const generateCSS = (options) => {
   const timeStamp = (new Date()).getTime();
-  const outputFontFiles = glob.sync(path.join(process.cwd(), options.fontOutputPath, '*'));
+  const outputFontFiles = glob.sync(path.join(options.fontOutputPath, '*'));
   outputFontFiles.forEach(fontFile => {
     const metas = path.parse(fontFile);
     const ext = metas.ext.slice(1);
@@ -63,7 +63,7 @@ const generateCSS = (options) => {
       options[ext] = `${/\/$/.test(options.stylePath) ? options.stylePath : `${options.stylePath}/`}${metas.base}?t=${timeStamp}`;
     }
   });
-  const cssPathDir = path.join(process.cwd(), options.cssOutputPath);
+  const cssPathDir = options.cssOutputPath;
   fs.ensureDirSync(cssPathDir);
   fs.writeFileSync(path.join(cssPathDir, /\.\w*$/.test(options.cssFileName) ? options.cssFileName : `${options.cssFileName}.css`), _.template(TEMPLATE_STR)(options));
 };

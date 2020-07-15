@@ -1,7 +1,8 @@
 const svg2font = require('../index');
+const path = require('path');
 svg2font({
     // svgs 路径，参考 https://github.com/isaacs/node-glob
-    svgPath: 'svgs/*',
+    svgPath: path.join(__dirname, 'svgs', '*.svg'),
     // 输出 css 文件名
     cssFileName: '_iconfont.scss',
     // 字体名

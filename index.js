@@ -22,6 +22,14 @@ const init = (options) => {
     pseudo: 'before'
   };
   options = _.assignInWith(defaults, options, (objValue, srcValue) => !srcValue ? objValue : srcValue);
+  console.log(options.outputPath)
+  if(_.isObject(options.outputPath)){
+    options.fontOutputPath = options.outputPath.font || 'output';
+    options.cssOutputPath = options.outputPath.css || 'output';
+  } else {
+    options.fontOutputPath = options.outputPath;
+    options.cssOutputPath = options.outputPath;
+  }
   generateFont(options);
   generateCSS(options);
 };

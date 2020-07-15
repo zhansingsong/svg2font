@@ -10,7 +10,7 @@ const TEMPLATE_STR = fs.readFileSync(path.join(__dirname, 'css.template'));
 const fontMeta = JSON.parse(fs.readFileSync(path.join(__dirname, 'fontMeta.json'), {encoding: 'utf-8'}));
 const codePoints = fontMeta.codePoints || {};
 const unicodeMapSvg = fontMeta.unicodeMapSvg || {};
-let startCodePoint = parseInt(fontMeta.startCodePoint || 0xF101, 16);
+let startCodePoint = parseInt(fontMeta.startCodePoint || '0xF101', 16);
 
 const updateFontMeta = (fontMeta) => fs.writeFileSync(path.join(__dirname, 'fontMeta.json'), JSON.stringify(fontMeta, null, 4));
 // 0xF101
@@ -40,22 +40,20 @@ const generateFont = (options) => {
     font.setSvg(getUnicodeMapSvg(svg), fs.readFileSync(svg).toString());
   });
   // 更新 font meta
-  console.log(startCodePoint, codePoints, unicodeMapSvg);
-
   startCodePoint = startCodePoint.toString(16);
   updateFontMeta({startCodePoint, codePoints, unicodeMapSvg});
   options = _.extend(options, {startCodePoint, codePoints, unicodeMapSvg});
   // 输出字体文件
-  const pathDir = path.join(process.cwd(), options.outputPath);
-  fs.ensureDirSync(pathDir);
+  const fontPathDir = path.join(process.cwd(), options.fontOutputPath);
+  fs.ensureDirSync(fontPathDir);
   font.output({
-    path: path.join(pathDir, options.fontName)
+    path: path.join(fontPathDir, options.fontName)
   });
 };
 
 const generateCSS = (options) => {
   const timeStamp = (new Date()).getTime();
-  const outputFontFiles = glob.sync(path.join(process.cwd(), options.outputPath, '*'));
+  const outputFontFiles = glob.sync(path.join(process.cwd(), options.fontOutputPath, '*'));
   outputFontFiles.forEach(fontFile => {
     const metas = path.parse(fontFile);
     const ext = metas.ext.slice(1);
@@ -65,7 +63,9 @@ const generateCSS = (options) => {
       options[ext] = `${/\/$/.test(options.stylePath) ? options.stylePath : `${options.stylePath}/`}${metas.base}?t=${timeStamp}`;
     }
   });
-  fs.writeFileSync(path.join(process.cwd(), options.outputPath, /\.\w*$/.test(options.cssFileName) ? options.cssFileName : `${options.cssFileName}.css`), _.template(TEMPLATE_STR)(options));
+  const cssPathDir = path.join(process.cwd(), options.cssOutputPath);
+  fs.ensureDirSync(cssPathDir);
+  fs.writeFileSync(path.join(cssPathDir, /\.\w*$/.test(options.cssFileName) ? options.cssFileName : `${options.cssFileName}.css`), _.template(TEMPLATE_STR)(options));
 };
 
 module.exports = {

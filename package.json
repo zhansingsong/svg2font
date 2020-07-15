@@ -1,6 +1,6 @@
 {
   "name": "@zhansingsong/svg2font",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "convertor svg to icon font",
   "main": "index.js",
   "scripts": {

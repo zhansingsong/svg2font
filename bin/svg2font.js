@@ -32,6 +32,8 @@ program.version(pkg.version, '-v, --version')
 program.parse(process.argv);
 
 let {svgPath, cssFileName, fontName, iconClassPrefix, outputPath, outputPathFont, outputPathCss, stylePath, pseudo} = program;
+// https://stackoverflow.com/questions/3954750/parsing-command-line-arguments-as-wildcards
+svgPath = svgPath.replace(/@/g, '*');
 
 if(!outputPath){
   outputPath = {

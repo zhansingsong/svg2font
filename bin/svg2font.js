@@ -18,6 +18,8 @@ program.version(pkg.version, '-v, --version')
   .option('-i, --icon-class-prefix [iconClassPrefix]', 'set class prefix')
   .option('-b, --base-class [baseClass]', 'set base class')
   .option('-o, --output-path [outputPath]', 'set output path to fonts')
+  .option('-of, --output-path-font [outputPathFont]', 'set output font path to fonts')
+  .option('-oc, --output-path-css [outputPathCss]', 'set output css path to fonts')
   .option('-s, --style-path [stylePath]', 'set output path to fonts')
   .option('-p, --pseudo [pseudo]', 'set pseudo')
   .on('--help', () => {
@@ -29,7 +31,15 @@ program.version(pkg.version, '-v, --version')
 
 program.parse(process.argv);
 
-const {svgPath, cssFileName, fontName, iconClassPrefix, outputPath, stylePath, pseudo} = program;
+let {svgPath, cssFileName, fontName, iconClassPrefix, outputPath, outputPathFont, outputPathCss, stylePath, pseudo} = program;
+
+if(!outputPath){
+  outputPath = {
+    font: outputPathFont,
+    css: outputPathCss
+  }
+}
+
 svg2font({
   svgPath, cssFileName, fontName, iconClassPrefix, outputPath, stylePath, pseudo
 });

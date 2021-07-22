@@ -20,6 +20,7 @@ program.version(pkg.version, '-v, --version')
   .option('-o, --output-path [outputPath]', 'set output path to fonts')
   .option('-s, --style-path [stylePath]', 'set output path to fonts')
   .option('-p, --pseudo [pseudo]', 'set pseudo')
+  .option('-a, --append [append]', 'set append')
   .on('--help', () => {
     console.log(`\n${chalk.bold('Examples:')}\n`);
     console.log(`  ${chalk.bold.yellow('$')} svg2font /path/to/svg/*.svg`);
@@ -29,7 +30,7 @@ program.version(pkg.version, '-v, --version')
 
 program.parse(process.argv);
 
-const {svgPath, cssFileName, fontName, iconClassPrefix, outputPath, stylePath, pseudo} = program;
+const {svgPath, cssFileName, fontName, iconClassPrefix, outputPath, stylePath, pseudo, append} = program;
 svg2font({
-  svgPath, cssFileName, fontName, iconClassPrefix, outputPath, stylePath, pseudo
+  svgPath, cssFileName, fontName, iconClassPrefix, outputPath, stylePath, pseudo, append
 });

@@ -21,7 +21,9 @@ const init = (options) => {
     // css 中字体的引用路径
     stylePath: '.',
     // 设置伪类
-    pseudo: 'before'
+    pseudo: 'before',
+    // 是否追加
+    append: false,
   };
   options = _.assignInWith(defaults, options, (objValue, srcValue) => !srcValue ? objValue : srcValue);
   if(_.isObject(options.outputPath)){

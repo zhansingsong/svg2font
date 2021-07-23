@@ -53,6 +53,8 @@ Options:
   -i, --icon-class-prefix [iconClassPrefix]  set class prefix
   -b, --base-class [baseClass]               set base class
   -o, --output-path [outputPath]             set output path to fonts
+  -of, --output-path-font [outputPathFont]   set output font path to fonts
+  -oc, --output-path-css [outputPathCss]     set output css path to fonts
   -s, --style-path [stylePath]               set output path to fonts
   -p, --pseudo [pseudo]                      set pseudo
   -h, --help                                 display help for command

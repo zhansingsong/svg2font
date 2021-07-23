@@ -25,7 +25,7 @@ const init = (options) => {
     // 是否追加
     append: true,
   };
-  options = _.assignInWith(defaults, options, (objValue, srcValue) => !srcValue ? objValue : srcValue);
+  options = _.assignInWith(defaults, options, (objValue, srcValue) => _.isUndefined(srcValue) ? objValue : srcValue);
   if(_.isObject(options.outputPath)){
     options.fontOutputPath = options.outputPath.font || 'output';
     options.cssOutputPath = options.outputPath.css || 'output';

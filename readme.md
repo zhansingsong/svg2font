@@ -2,7 +2,6 @@
 
 一个将 SVG icon 转换为 font icons 实用小工具！
 
-
 ## 快速入门
 
 - 安装
@@ -35,7 +34,9 @@ svg2font({
     // css 中字体的引用路径
     stylePath: '.',
     // 设置伪类
-    pseudo: 'before'
+    pseudo: 'before',
+    // 是否进行追加
+    append: true,
 });
 ```
 
@@ -57,6 +58,7 @@ Options:
   -oc, --output-path-css [outputPathCss]     set output css path to fonts
   -s, --style-path [stylePath]               set output path to fonts
   -p, --pseudo [pseudo]                      set pseudo
+  -a, --append [append]                      set append
   -h, --help                                 display help for command
 
 Examples:

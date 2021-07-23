@@ -35,7 +35,7 @@ svg2font({
     stylePath: '.',
     // 设置伪类
     pseudo: 'before',
-    // 是否进行追加
+    // 是否进行追加。 取值 false 时，每次都会重新生成
     append: true,
 });
 ```

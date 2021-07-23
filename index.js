@@ -23,7 +23,7 @@ const init = (options) => {
     // 设置伪类
     pseudo: 'before',
     // 是否追加
-    append: false,
+    append: true,
   };
   options = _.assignInWith(defaults, options, (objValue, srcValue) => !srcValue ? objValue : srcValue);
   if(_.isObject(options.outputPath)){
